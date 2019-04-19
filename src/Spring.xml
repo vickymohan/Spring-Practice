@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context      
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        
+ <context:annotation-config/>
+ <context:component-scan base-package="com.practice.spring"></context:component-scan>
+ <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+<!-- 
+<bean id="Triangle" class="com.practice.spring.Triangle" name="Triangleclass">
+passing values into constructor
+<constructor-arg name="type" index="1" value="isosceles"></constructor-arg>
+<constructor-arg name="sides" index="0" value="side1"></constructor-arg>
+<property name="c">
+initialising list
+<list>
+innerbean
+<bean id="Circle1" class="com.practice.spring.Circle" name="Circle1">
+<property name="area" value="123"></property>
+<property name="diameter" value="23"></property>
+
+</bean>  
+object injection
+<ref bean="Circle2"/>
+<ref bean="Circle3"/>
+</list>
+
+</property>
+object injection
+<property name="angle" value="90"></property>
+
+</bean>  -->  
+<!-- autowire cir using byname -->
+<!-- inheritance using parent attribute -->
+<!-- lifecycle callbacks using initmethod and destroymethod attributes -->
+
+ 
+<bean id="Triangle" class="com.practice.spring.Triangle" name="Triangleclass" parent="Shape" >
+<!-- passing values into constructor -->
+ <constructor-arg name="type" index="1" value="isosceles"></constructor-arg>
+<constructor-arg name="sides" index="0" value="side1"></constructor-arg> 
+<!-- <property name="c">
+initialising list
+<list>
+innerbean
+<bean id="Circle1" class="com.practice.spring.Circle" name="Circle1"  init-method="initialize" destroy-method="dispose">
+<property name="area" value="123"></property>
+<property name="diameter" value="23"></property>
+
+</bean>  
+object injection
+<ref bean="Circle2"/>
+<ref bean="Circle3"/>
+</list>
+
+</property> -->
+<!-- object injection -->
+<!-- <property name="angle" value="90"></property> -->  
+</bean>
+
+ <bean id="cir" class="com.practice.spring.Circle" name="cir">
+<property name="area" value="${circle3.value}"></property>
+<property name="diameter" value="67"></property>
+
+</bean>  
+   
+<bean id="Circle2" class="com.practice.spring.Circle" name="Circle2class">
+<property name="area" value="${circle2.value}"></property>
+<property name="diameter" value="45"></property>
+
+</bean>  
+<bean id="Circle3" class="com.practice.spring.Circle" name="Cicle3class">
+<property name="area" value="100"></property>
+<property name="diameter" value="10"></property>
+
+</bean>  
+
+<bean id="Shape" class="com.practice.spring.Shape" name="Shape">
+<property name="name" value="rectangle"></property>
+<property name="irregular" value="false"></property>
+
+</bean> 
+<alias name="Triangle" alias="alias-triangle"/>     
+<!-- reading properties form property file -->
+<bean id="propertyPlaceholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+<property name="locations" value="placeholder.properties"></property>
+</bean>
+
+<bean name="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
+    <property name="basenames"> 
+        <value>mymessage</value> 
+    </property> 
+</bean>
+
+<bean name="Aspect" class="com.practice.spring.AspectPractice"></bean>
+        
+</beans>
